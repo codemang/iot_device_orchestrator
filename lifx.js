@@ -4,15 +4,19 @@ const _ = require('lodash');
 
 client.init();
 
-const loadLight = (name, callback) => {
-  client.on('light-new', function(light) {
-    light.getState((error, state) => {
-      if (state.label === name) {
-        callback(light);
-      }
-    })
-  });
-};
+const loadLight = async (name) => {
+  return (
+    new Promise((resolve, reject) => {
+      client.on('light-new', function(light) {
+        light.getState((error, state) => {
+          if (state.label === name) {
+            resolve(light);
+          }
+        })
+      })
+    }
+  ));
+}
 
 const updateBrightness = (light, amount) => {
   light.getState((error, state) => {
