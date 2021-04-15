@@ -6,6 +6,7 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "node-lifx": "^0.8.0",
+    "sonos": "^1.14.1",
     "tplink-smarthome-api": "^3.3.0"
   }
 }

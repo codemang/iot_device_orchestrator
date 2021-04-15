@@ -1,4 +1,5 @@
 const Lifx = require('./lifx');
+const Sonos = require('./sonos');
 const TpLinkPlug = require('./tp_link_plug')
 const fliclib = require("./flic/clientlib/nodejs/fliclibNodeJs");
 const FlicClient = fliclib.FlicClient;
@@ -7,6 +8,7 @@ const FlicScanner = fliclib.FlicScanner;
 
 let lifxLight;
 let lampPlug;
+let sonos;
 
 const initFlic = () => {
   var flicClient = new FlicClient("localhost", 5551);
@@ -15,8 +17,9 @@ const initFlic = () => {
     var cc = new FlicConnectionChannel(bdAddr);
     flicClient.addConnectionChannel(cc);
 
-    cc.on("buttonUpOrDown", function(clickType, wasQueued, timeDiff) {
-      if (clickType === 'ButtonUp') {
+    cc.on("buttonSingleOrDoubleClickOrHold", function(clickType, wasQueued, timeDiff) {
+      // if (clickType === 'ButtonUp') {
+      if (clickType === 'ButtonSingleClick') {
         lifxLight.getState((error, state) => {
           if (state.power === 1) {
             lifxLight.off(300);
@@ -27,6 +30,8 @@ const initFlic = () => {
             lampPlug.setPowerState(true);
           }
         });
+      } else if (clickType === 'ButtonDoubleClick') {
+        sonos.play('spotify:playlist:1Ak4uuTgaNddv11reyPBX3')
       }
     });
   }
@@ -45,6 +50,9 @@ const initFlic = () => {
 const main = async () => {
   lampPlug = await TpLinkPlug.loadPlug('Lamp plug')
   lifxLight = await Lifx.loadLight('Nate')
+  sonos = new Sonos('Bat Speaker')
+  await sonos.loadSonos();
+
   initFlic();
 }
 
