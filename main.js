@@ -5,10 +5,16 @@ const fliclib = require("./flic/clientlib/nodejs/fliclibNodeJs");
 const FlicClient = fliclib.FlicClient;
 const FlicConnectionChannel = fliclib.FlicConnectionChannel;
 const FlicScanner = fliclib.FlicScanner;
+const moment = require('moment');
 
 let lifxLight;
 let lampPlug;
 let sonos;
+
+const log = message => {
+  const timestamp = moment().format('MMMM Do YYYY, h:mm:ss a')
+  console.log(`[${timestamp}]: ${message}`);
+}
 
 const initFlic = () => {
   var flicClient = new FlicClient("localhost", 5551);
@@ -18,7 +24,9 @@ const initFlic = () => {
     flicClient.addConnectionChannel(cc);
 
     cc.on("buttonSingleOrDoubleClickOrHold", function(clickType, wasQueued, timeDiff) {
-      // if (clickType === 'ButtonUp') {
+      log("Received click")
+      log(clickType)
+
       if (clickType === 'ButtonSingleClick') {
         lifxLight.getState((error, state) => {
           if (state.power === 1) {
@@ -37,7 +45,7 @@ const initFlic = () => {
   }
 
   flicClient.once("ready", function() {
-    console.log("Connected to daemon!");
+    log("Connected to Flic daemon!");
 
     flicClient.getInfo(function(info) {
       info.bdAddrOfVerifiedButtons.forEach(function(bdAddr) {
@@ -48,10 +56,14 @@ const initFlic = () => {
 }
 
 const main = async () => {
+  log("Starting main process")
+
   lampPlug = await TpLinkPlug.loadPlug('Lamp plug')
   lifxLight = await Lifx.loadLight('Nate')
   sonos = new Sonos('Bat Speaker')
   await sonos.loadSonos();
+
+  log("Loaded all smart devices")
 
   initFlic();
 }
