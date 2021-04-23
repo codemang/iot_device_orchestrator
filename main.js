@@ -1,4 +1,4 @@
-const Lifx = require('./lifx');
+const LifxLight = require('./lifx_light');
 const Sonos = require('./sonos');
 const TpLinkPlug = require('./tp_link_plug')
 const fliclib = require("./flic/clientlib/nodejs/fliclibNodeJs");
@@ -16,6 +16,18 @@ const log = message => {
   console.log(`[${timestamp}]: ${message}`);
 }
 
+const processSingleClick = async () => {
+  const lifxLightState = await lifxLight.getLightState();
+
+  if (lifxLightState.power === 1) {
+    lifxLight.turnOff();
+    lampPlug.setPowerState(false);
+  } else {
+    lifxLight.turnOn();
+    lampPlug.setPowerState(true);
+  }
+};
+
 const initFlic = () => {
   var flicClient = new FlicClient("localhost", 5551);
 
@@ -28,16 +40,7 @@ const initFlic = () => {
       log(clickType)
 
       if (clickType === 'ButtonSingleClick') {
-        lifxLight.getState((error, state) => {
-          if (state.power === 1) {
-            lifxLight.off(300);
-            lampPlug.setPowerState(false);
-          } else {
-            lifxLight.color(state.color.hue, state.color.saturation, 50, 3500, 0); // Fading the light on over two seconds
-            lifxLight.on(300);
-            lampPlug.setPowerState(true);
-          }
-        });
+        processSingleClick();
       } else if (clickType === 'ButtonDoubleClick') {
         sonos.play('spotify:playlist:1Ak4uuTgaNddv11reyPBX3')
       }
@@ -59,7 +62,10 @@ const main = async () => {
   log("Starting main process")
 
   lampPlug = await TpLinkPlug.loadPlug('Lamp plug')
-  lifxLight = await Lifx.loadLight('Nate')
+
+  lifxLight = new LifxLight('Nate')
+  await lifxLight.load();
+
   sonos = new Sonos('Bat Speaker')
   await sonos.loadSonos();
 
