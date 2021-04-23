@@ -6,6 +6,7 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
     "node-lifx": "^0.8.0",
     "sonos": "^1.14.1",
     "tplink-smarthome-api": "^3.3.0"

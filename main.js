@@ -5,14 +5,14 @@ const fliclib = require("./flic/clientlib/nodejs/fliclibNodeJs");
 const FlicClient = fliclib.FlicClient;
 const FlicConnectionChannel = fliclib.FlicConnectionChannel;
 const FlicScanner = fliclib.FlicScanner;
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 let lifxLight;
 let lampPlug;
 let sonos;
 
 const log = message => {
-  const timestamp = moment().format('MMMM Do YYYY, h:mm:ss a')
+  const timestamp = moment().tz('America/New_York').format('MMMM Do YYYY, h:mm:ss a')
   console.log(`[${timestamp}]: ${message}`);
 }
 
