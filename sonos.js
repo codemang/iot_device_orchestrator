@@ -23,6 +23,18 @@ class Sonos {
   async play(uri) {
     this.sonosRef.play(uri)
   }
+
+  async getVolume() {
+    return this.sonosRef.getVolume();
+  }
+
+  setVolume(volume) {
+    this.sonosRef.setVolume(volume);
+  }
+
+  pause() {
+    this.sonosRef.pause();
+  }
 }
 
 const main = async () => {

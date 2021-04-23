@@ -37,8 +37,8 @@ class LifxLight {
     return lightState.power === 1;
   }
 
-  async turnOn() {
-    this.lightRef.color(90, 0, 79, 2750);
+  async turnOn(color = [90, 0, 50, 2750]) {
+    this.lightRef.color(...color);
     this.lightRef.on(300); // Fade the light on over a period of milliseconds.
   }
 
