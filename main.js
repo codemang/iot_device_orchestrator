@@ -34,6 +34,10 @@ const cleanupBeforeModeSwitch = () => {
 }
 
 const processSingleClick = async () => {
+  if (currentMode !== SINGLE_CLICK) {
+    cleanupBeforeModeSwitch();
+  }
+
   const lifxLightState = await lifxLight.getLightState();
 
   if (currentMode !== SINGLE_CLICK || lifxLightState.power === 0) {
@@ -69,6 +73,10 @@ const processDoubleClick = async () => {
 }
 
 const processHold = async () => {
+  if (currentMode !== HOLD) {
+    cleanupBeforeModeSwitch();
+  }
+
   const lifxLightState = await lifxLight.getLightState();
 
   const lampState = await lampPlug.getSysInfo()
