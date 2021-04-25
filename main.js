@@ -8,9 +8,6 @@ const FlicScanner = fliclib.FlicScanner;
 const moment = require('moment-timezone');
 const readline = require('readline');
 
-readline.emitKeypressEvents(process.stdin);
-process.stdin.setRawMode(true);
-
 
 let lifxLight;
 let lampPlug;
@@ -148,6 +145,9 @@ const test = async () => {
   await initDevices();
   log("Loaded all smart devices")
 
+  // Prepare to listen to key presses.
+  readline.emitKeypressEvents(process.stdin);
+  process.stdin.setRawMode(true);
 
   process.stdin.on('keypress', (str, key) => {
     if (str === 'a') {
