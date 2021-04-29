@@ -1,10 +1,12 @@
 const LightController = require('./light_controller.js');
 const express = require('express');
+const cors = require('cors');
+
 const app = express();
 
 const lightController = new LightController();
 
-app.post('/click/single_click', function (req, res) {
+app.post('/click/single_click', cors(), function (req, res) {
   lightController.processSingleClick();
   res.send();
 })
