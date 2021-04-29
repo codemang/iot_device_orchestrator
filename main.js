@@ -98,6 +98,7 @@ const initFlic = () => {
     cc.on("buttonSingleOrDoubleClickOrHold", function(clickType, wasQueued, timeDiff) {
       log("Received click")
       log(clickType)
+      return
 
       if (clickType === 'ButtonSingleClick') {
         processSingleClick();
@@ -133,8 +134,8 @@ const initDevices = async () => {
 const main = async () => {
   log("Starting main process")
 
-  await initDevices();
-  log("Loaded all smart devices")
+  // await initDevices();
+  // log("Loaded all smart devices")
 
   initFlic();
 }
