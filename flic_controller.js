@@ -1,11 +1,12 @@
 const LightController = require('./light_controller.js');
+const ApiClient = require('./api_client.js');
 const fliclib = require("./flic/clientlib/nodejs/fliclibNodeJs");
 
 const FlicClient = fliclib.FlicClient;
 const FlicConnectionChannel = fliclib.FlicConnectionChannel;
 const FlicScanner = fliclib.FlicScanner;
 
-const lightController = new LightController();
+const apiClient = new ApiClient('http://localhost:3000');
 
 const { log } = require('./log.js');
 
@@ -20,11 +21,11 @@ const initFlic = () => {
       log("Received click: "+clickType)
 
       if (clickType === 'ButtonSingleClick') {
-        lightController.processSingleClick();
+        apiClient.triggerSingleClick();
       } else if (clickType === 'ButtonDoubleClick') {
-        lightController.processDoubleClick();
+        apiClient.triggerDoubleClick();
       } else if (clickType === 'ButtonHold') {
-        lightController.processHold();
+        apiClient.triggerHold();
       }
     });
   }
@@ -41,9 +42,6 @@ const initFlic = () => {
 }
 
 const main = async () => {
-  await lightController.loadDevices();
-  log("Loaded all smart devices")
-
   initFlic();
 }
 

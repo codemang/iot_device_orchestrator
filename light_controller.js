@@ -1,4 +1,3 @@
-
 const LifxLight = require('./lifx_light');
 const Sonos = require('./sonos');
 const TpLinkPlug = require('./tp_link_plug')
