@@ -42,6 +42,8 @@ const initFlic = () => {
 
 const main = async () => {
   await lightController.loadDevices();
+  log("Loaded all smart devices")
+
   initFlic();
 }
 

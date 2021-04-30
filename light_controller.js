@@ -16,8 +16,6 @@ class LightController {
   }
 
   async loadDevices() {
-    return Promise.resolve();
-
     this.lampPlug = await TpLinkPlug.loadPlug('Lamp plug')
 
     this.lifxLight = new LifxLight('Nate')
@@ -28,11 +26,8 @@ class LightController {
   }
 
   async processSingleClick() {
-    console.log("Single Click");
-    return;
-
     if (this.currentMode !== SINGLE_CLICK) {
-      cleanupBeforeModeSwitch();
+      this.cleanupBeforeModeSwitch();
     }
 
     const lifxLightState = await this.lifxLight.getLightState();
@@ -49,11 +44,8 @@ class LightController {
   }
 
   async processDoubleClick() {
-    console.log("Double Click");
-    return;
-
     if (this.currentMode !== DOUBLE_CLICK) {
-      cleanupBeforeModeSwitch();
+      this.cleanupBeforeModeSwitch();
     }
 
     const lifxLightState = await this.lifxLight.getLightState();
@@ -73,11 +65,8 @@ class LightController {
   }
 
   async processHold() {
-    console.log("Hold");
-    return;
-
     if (this.currentMode !== HOLD) {
-      cleanupBeforeModeSwitch();
+      this.cleanupBeforeModeSwitch();
     }
 
     const lifxLightState = await this.lifxLight.getLightState();
