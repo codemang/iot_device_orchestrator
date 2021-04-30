@@ -1,12 +1,12 @@
 const axios = require('axios').default;
 
 class ApiClient {
-  constructor(rpiHost) {
+  constructor(serverHost) {
     this.apiClient = axios.create({
-      baseURL: rpiHost
+      baseURL: serverHost
     });
 
-    if (!rpiHost.includes('http')) {
+    if (!serverHost.includes('http')) {
       throw 'You must supply a scheme';
     }
   }
