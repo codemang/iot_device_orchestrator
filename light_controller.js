@@ -15,13 +15,16 @@ class LightController {
   }
 
   async loadDevices() {
-    this.lampPlug = await TpLinkPlug.loadPlug('Lamp plug')
+    console.log('111');
+    this.lampPlug = await TpLinkPlug.loadPlug('Nate Light')
 
     this.lifxLight = new LifxLight('Nate')
     await this.lifxLight.load();
+    console.log('222');
 
-    this.sonos = new Sonos('Bat Speaker')
-    await this.sonos.loadSonos();
+    // this.sonos = new Sonos('Bat Speaker')
+    // await this.sonos.loadSonos();
+    // console.log('333');
   }
 
   async processSingleClick() {

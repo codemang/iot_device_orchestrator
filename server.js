@@ -24,8 +24,8 @@ app.post('/click/hold', function (req, res) {
 const startServer = async () => {
   await lightController.loadDevices();
 
-  app.listen(3000, () => {
-    console.log(`Example app listening on port ${3000}!`)
+  app.listen(4000, () => {
+    console.log(`Example app listening on port ${4000}!`)
   });
 };
 

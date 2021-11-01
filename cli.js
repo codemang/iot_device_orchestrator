@@ -7,7 +7,7 @@ const lightController = new LightController();
 
 const main = async (rpiHost) => {
   const apiClient = new ApiClient(rpiHost);
-  await lightController.loadDevices();
+  // await lightController.loadDevices();
 
   log("Loaded all smart devices")
   log("Press q to quit")

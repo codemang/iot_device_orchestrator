@@ -6,7 +6,7 @@ const FlicClient = fliclib.FlicClient;
 const FlicConnectionChannel = fliclib.FlicConnectionChannel;
 const FlicScanner = fliclib.FlicScanner;
 
-const apiClient = new ApiClient('http://localhost:3000');
+const apiClient = new ApiClient('http://localhost:4000');
 
 const { log } = require('./log.js');
 
