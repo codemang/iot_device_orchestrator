@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint '**/*.{js,js}'"
+  },
   "dependencies": {
     "axios": "^0.21.1",
     "cors": "^2.8.5",
@@ -13,5 +16,10 @@
     "node-lifx": "^0.8.0",
     "sonos": "^1.14.1",
     "tplink-smarthome-api": "^3.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2"
   }
 }

@@ -1,18 +1,18 @@
-const ApiClient = require('./api_client.js');
 const readline = require('readline');
-const { log } = require('./log.js');
+const ApiClient = require('./api_client');
+const { log } = require('./log');
 
 const main = async (apiServerHost) => {
   const apiClient = new ApiClient(apiServerHost);
 
-  log("Loaded all smart devices")
-  log("Press q to quit")
+  log('Loaded all smart devices');
+  log('Press q to quit');
 
   // Prepare to listen to key presses.
   readline.emitKeypressEvents(process.stdin);
   process.stdin.setRawMode(true);
 
-  process.stdin.on('keypress', (str, key) => {
+  process.stdin.on('keypress', (str) => {
     if (str === 'a') {
       apiClient.triggerSingleClick();
     } else if (str === 's') {
@@ -22,13 +22,13 @@ const main = async (apiServerHost) => {
     } else if (str === 'q') {
       process.exit();
     }
-  })
+  });
 };
 
-const apiServerHost = process.argv[2]
+const apiServerHost = process.argv[2];
 
 if (!apiServerHost) {
-  throw 'You must supply the API server host as a CLI argument!';
+  throw new Error('You must supply the API server host as a CLI argument!');
 }
 
 main(apiServerHost);

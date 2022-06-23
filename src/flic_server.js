@@ -1,24 +1,21 @@
-const IotDeviceOrchestrator = require('./iot_device_orchestrator.js');
-const ApiClient = require('./api_client.js');
-const fliclib = require("./flic/clientlib/nodejs/fliclibNodeJs");
+const ApiClient = require('./api_client');
+const fliclib = require('../flic/clientlib/nodejs/fliclibNodeJs');
+const { log } = require('./log');
 
-const FlicClient = fliclib.FlicClient;
-const FlicConnectionChannel = fliclib.FlicConnectionChannel;
-const FlicScanner = fliclib.FlicScanner;
+const { FlicClient } = fliclib;
+const { FlicConnectionChannel } = fliclib;
 
 const apiClient = new ApiClient('http://localhost:4000');
 
-const { log } = require('./log.js');
-
 const initFlic = () => {
-  var flicClient = new FlicClient("localhost", 5551);
+  const flicClient = new FlicClient('localhost', 5551);
 
-  const listenToButton = bdAddr => {
-    var cc = new FlicConnectionChannel(bdAddr);
+  const listenToButton = (bdAddr) => {
+    const cc = new FlicConnectionChannel(bdAddr);
     flicClient.addConnectionChannel(cc);
 
-    cc.on("buttonSingleOrDoubleClickOrHold", function(clickType, wasQueued, timeDiff) {
-      log("Received click: "+ clickType)
+    cc.on('buttonSingleOrDoubleClickOrHold', (clickType) => {
+      log(`Received click: ${clickType}`);
 
       if (clickType === 'ButtonSingleClick') {
         apiClient.triggerSingleClick();
@@ -28,22 +25,22 @@ const initFlic = () => {
         apiClient.triggerHold();
       }
     });
-  }
+  };
 
-  flicClient.once("ready", function() {
-    log("Connected to Flic daemon!");
+  flicClient.once('ready', () => {
+    log('Connected to Flic daemon!');
 
-    flicClient.getInfo(function(info) {
-      info.bdAddrOfVerifiedButtons.forEach(function(bdAddr) {
+    flicClient.getInfo((info) => {
+      info.bdAddrOfVerifiedButtons.forEach((bdAddr) => {
         listenToButton(bdAddr);
       });
     });
   });
-}
+};
 
 const main = async () => {
   initFlic();
-}
+};
 
 main();
 

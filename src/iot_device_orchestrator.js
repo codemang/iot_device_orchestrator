@@ -1,5 +1,5 @@
 const LifxLight = require('./devices/lifx_light');
-const TpLinkPlug = require('./devices/tp_link_plug')
+const TpLinkPlug = require('./devices/tp_link_plug');
 
 const SINGLE_CLICK = 'single_click';
 const DOUBLE_CLICK = 'double_click';
@@ -13,15 +13,11 @@ class IotDeviceOrchestrator {
   }
 
   async loadDevices() {
-    this.lampPlug = await TpLinkPlug.loadPlug('Nate Light')
-    this.lifxLight = await LifxLight.load('Nate')
+    this.lampPlug = await TpLinkPlug.loadPlug('Nate Light');
+    this.lifxLight = await LifxLight.load('Nate');
   }
 
   async processSingleClick() {
-    if (this.currentMode !== SINGLE_CLICK) {
-      this.cleanupBeforeModeSwitch();
-    }
-
     const lifxLightState = await this.lifxLight.getLightState();
 
     if (this.currentMode !== SINGLE_CLICK || lifxLightState.power === 0) {
@@ -36,10 +32,6 @@ class IotDeviceOrchestrator {
   }
 
   async processDoubleClick() {
-    if (this.currentMode !== DOUBLE_CLICK) {
-      this.cleanupBeforeModeSwitch();
-    }
-
     const lifxLightState = await this.lifxLight.getLightState();
 
     if (this.currentMode !== DOUBLE_CLICK || lifxLightState.power === 0) {
@@ -54,13 +46,7 @@ class IotDeviceOrchestrator {
   }
 
   async processHold() {
-    if (this.currentMode !== HOLD) {
-      this.cleanupBeforeModeSwitch();
-    }
-
-    const lifxLightState = await this.lifxLight.getLightState();
-
-    const lampState = await this.lampPlug.getSysInfo()
+    const lampState = await this.lampPlug.getSysInfo();
 
     if (this.currentMode !== HOLD || lampState.relay_state === 0) {
       this.lifxLight.turnOff();
@@ -71,7 +57,6 @@ class IotDeviceOrchestrator {
 
     this.currentMode = HOLD;
   }
-
-  async cleanupBeforeModeSwitch() {}
 }
+
 module.exports = IotDeviceOrchestrator;

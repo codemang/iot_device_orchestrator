@@ -1,9 +1,8 @@
 const { Client } = require('tplink-smarthome-api');
 
-
 class TpLinkPlug {
   constructor(plugName) {
-    this.plugName = plugName
+    this.plugName = plugName;
     this.plugRef = undefined;
     this.tpLinkClient = new Client();
   }
@@ -16,11 +15,10 @@ class TpLinkPlug {
 
   async loadPlug() {
     return (
-      new Promise((resolve, reject) => {
+      new Promise((resolve) => {
         this.tpLinkClient.startDiscovery().on('device-new', (device) => {
-          device.getSysInfo().then(info => {
-            console.log(info.alias);
-            if (info.alias == this.plugName) {
+          device.getSysInfo().then((info) => {
+            if (info.alias === this.plugName) {
               this.plugRef = device;
               resolve();
             }
@@ -32,7 +30,7 @@ class TpLinkPlug {
 
   setPowerState(isPowerOn) {
     this.plugRef.setPowerState(isPowerOn);
-  };
+  }
 }
 
 module.exports = TpLinkPlug;

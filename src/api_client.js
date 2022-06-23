@@ -3,11 +3,11 @@ const axios = require('axios').default;
 class ApiClient {
   constructor(serverHost) {
     this.apiClient = axios.create({
-      baseURL: serverHost
+      baseURL: serverHost,
     });
 
     if (!serverHost.includes('http')) {
-      throw 'You must supply a scheme';
+      throw new Error('You must supply a scheme');
     }
   }
 
@@ -22,6 +22,6 @@ class ApiClient {
   triggerHold() {
     this.apiClient.post('click/hold');
   }
-};
+}
 
 module.exports = ApiClient;
