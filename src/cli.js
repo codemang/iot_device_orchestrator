@@ -1,13 +1,9 @@
-const LightController = require('./light_controller.js');
 const ApiClient = require('./api_client.js');
 const readline = require('readline');
 const { log } = require('./log.js');
 
-const lightController = new LightController();
-
-const main = async (rpiHost) => {
-  const apiClient = new ApiClient(rpiHost);
-  // await lightController.loadDevices();
+const main = async (apiServerHost) => {
+  const apiClient = new ApiClient(apiServerHost);
 
   log("Loaded all smart devices")
   log("Press q to quit")
@@ -29,13 +25,13 @@ const main = async (rpiHost) => {
   })
 };
 
-const rpiHost = process.argv[2]
+const apiServerHost = process.argv[2]
 
-if (!rpiHost) {
-  throw 'You must supply the RPI host as a CLI argument';
+if (!apiServerHost) {
+  throw 'You must supply the API server host as a CLI argument!';
 }
 
-main(rpiHost);
+main(apiServerHost);
 
-// Prevent the node process from exiting.
+// Prevent the Node process from exiting.
 process.stdin.resume();

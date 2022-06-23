@@ -9,7 +9,13 @@ class LifxLight {
     this.lifxApiClient.init();
   }
 
-  async load() {
+  static async load(lightName) {
+    const light = new this(lightName);
+    await light.loadLight();
+    return light;
+  }
+
+  async loadLight() {
     return (
       new Promise((resolve, reject) => {
         this.lifxApiClient.on('light-new', light => {

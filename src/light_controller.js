@@ -1,6 +1,5 @@
-const LifxLight = require('./lifx_light');
-const Sonos = require('./sonos');
-const TpLinkPlug = require('./tp_link_plug')
+const LifxLight = require('./devices/lifx_light');
+const TpLinkPlug = require('./devices/tp_link_plug')
 
 const SINGLE_CLICK = 'single_click';
 const DOUBLE_CLICK = 'double_click';
@@ -8,23 +7,14 @@ const HOLD = 'hold';
 
 class LightController {
   constructor() {
-    this.currentMode = SINGLE_CLICK;
     this.lampPlug = undefined;
     this.lifxLight = undefined;
-    this.sonos = undefined;
+    this.currentMode = SINGLE_CLICK;
   }
 
   async loadDevices() {
-    console.log('111');
     this.lampPlug = await TpLinkPlug.loadPlug('Nate Light')
-
-    this.lifxLight = new LifxLight('Nate')
-    await this.lifxLight.load();
-    console.log('222');
-
-    // this.sonos = new Sonos('Bat Speaker')
-    // await this.sonos.loadSonos();
-    // console.log('333');
+    this.lifxLight = await LifxLight.load('Nate')
   }
 
   async processSingleClick() {
@@ -55,12 +45,9 @@ class LightController {
     if (this.currentMode !== DOUBLE_CLICK || lifxLightState.power === 0) {
       this.lifxLight.turnOn([293, 100, 50, 3500]);
       this.lampPlug.setPowerState(false);
-      this.sonos.setVolume(9)
-      this.sonos.play('spotify:playlist:1Ak4uuTgaNddv11reyPBX3')
     } else {
       this.lifxLight.turnOff();
       this.lampPlug.setPowerState(false);
-      this.sonos.pause();
     }
 
     this.currentMode = DOUBLE_CLICK;
@@ -85,10 +72,6 @@ class LightController {
     this.currentMode = HOLD;
   }
 
-  async cleanupBeforeModeSwitch() {
-    if (this.currentMode === DOUBLE_CLICK) {
-      this.sonos.pause();
-    }
-  }
+  async cleanupBeforeModeSwitch() {}
 }
 module.exports = LightController;

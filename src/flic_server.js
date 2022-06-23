@@ -18,7 +18,7 @@ const initFlic = () => {
     flicClient.addConnectionChannel(cc);
 
     cc.on("buttonSingleOrDoubleClickOrHold", function(clickType, wasQueued, timeDiff) {
-      log("Received click: "+clickType)
+      log("Received click: "+ clickType)
 
       if (clickType === 'ButtonSingleClick') {
         apiClient.triggerSingleClick();
