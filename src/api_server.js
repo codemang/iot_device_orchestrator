@@ -1,28 +1,28 @@
-const LightController = require('./light_controller.js');
+const IotDeviceOrchestrator = require('./iot_device_orchestrator.js');
 const express = require('express');
 const cors = require('cors');
 
 const app = express();
 
-const lightController = new LightController();
+const iotDeviceOrchestrator = new IotDeviceOrchestrator();
 
 app.post('/click/single_click', cors(), function (req, res) {
-  lightController.processSingleClick();
+  iotDeviceOrchestrator.processSingleClick();
   res.send();
 })
 
 app.post('/click/double_click', function (req, res) {
-  lightController.processDoubleClick();
+  iotDeviceOrchestrator.processDoubleClick();
   res.send()
 })
 
 app.post('/click/hold', function (req, res) {
-  lightController.processHold();
+  iotDeviceOrchestrator.processHold();
   res.send()
 })
 
 const startServer = async () => {
-  await lightController.loadDevices();
+  await iotDeviceOrchestrator.loadDevices();
 
   app.listen(4000, () => {
     console.log(`Example app listening on port ${4000}!`)

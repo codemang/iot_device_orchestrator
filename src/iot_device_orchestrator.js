@@ -5,7 +5,7 @@ const SINGLE_CLICK = 'single_click';
 const DOUBLE_CLICK = 'double_click';
 const HOLD = 'hold';
 
-class LightController {
+class IotDeviceOrchestrator {
   constructor() {
     this.lampPlug = undefined;
     this.lifxLight = undefined;
@@ -74,4 +74,4 @@ class LightController {
 
   async cleanupBeforeModeSwitch() {}
 }
-module.exports = LightController;
+module.exports = IotDeviceOrchestrator;

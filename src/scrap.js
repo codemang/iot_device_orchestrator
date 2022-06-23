@@ -1,6 +1,6 @@
 const LifxLight = require('./devices/lifx_light.js');
 const TpLinkPlug = require('./devices/tp_link_plug.js');
-const LightController = require('./light_controller.js');
+const IotDeviceOrchestrator = require('./light_controller.js');
 
 console.log("Starting")
 
@@ -35,14 +35,14 @@ const readPower = async () => {
   console.log(await light.getLightState());
 }
 
-const loadLightController = async () => {
+const loadIotDeviceOrchestrator = async () => {
   console.log("Starting");
-  const controller = new LightController();
+  const controller = new IotDeviceOrchestrator();
   await controller.loadDevices();
   console.log("Done");
 }
 
-// loadLightController();
+// loadIotDeviceOrchestrator();
 // togglePower();
 // readPower();
 readPlug();

@@ -1,5 +1,5 @@
 {
-  "name": "light_controller",
+  "name": "iot_device_orchestrator",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",

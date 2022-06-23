@@ -1,4 +1,4 @@
-const LightController = require('./light_controller.js');
+const IotDeviceOrchestrator = require('./iot_device_orchestrator.js');
 const ApiClient = require('./api_client.js');
 const fliclib = require("./flic/clientlib/nodejs/fliclibNodeJs");
 
