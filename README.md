@@ -1,14 +1,15 @@
-Bluetooth Button Light Orchestration
+IoT Device Orchestrator
 =
 
-## Overview
-This repo contains a framework for controlling a series of IOT devices via a
-Bluetooth button. In my case, I've programmed a series of lights and speakers in
-my room to respond to 3 unique types of button clicks on my [Flic
-button](https://flic.io/shop/flic-2-single-pack).
+A combination of micro-controllers, IoT devices, and software programs to
+automate the lights and speakers in my room.
 
-## Architecture
-While I wanted to be able to control my lights and speakers via a Bluetooth
-button, I knew I also wanted to be able to do so from the command line, as well
-as through a mobile app. For that reason, the architecture for this application
-looks like the following:
+## Overview
+
+This repo contains the various server and client implementations needed to
+control the lights and speakers in my room from various devices. To see a full
+description of this project, read about it on my [personal site](https://www.codemang.com/projects/iot_device_orchestrator).
+
+You can also see an overview of the architecture here:
+
+![Flow Diagram](./assets/flow_diagram.png?raw=true)
